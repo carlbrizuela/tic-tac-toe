@@ -1,11 +1,15 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
-export default function Player( { name, symbol, onNameChange, hasGameStarted, currentPlayer } ) {
+export default function Player({ name, symbol, onNameChange, hasGameStarted, currentPlayer }) {
 
-  const [ isEditing, setIsEditing ] = useState( false )
-  const [ playerName, setPlayerName ] = useState( name )
+  const [isEditing, setIsEditing] = useState(false)
+  const [playerName, setPlayerName] = useState(name)
 
-  let styling = `player ${ currentPlayer === symbol ? 'active' : '' }`
+  useEffect(() => {
+    setPlayerName(name);
+  }, [name]);
+
+  let styling = `player ${currentPlayer === symbol ? 'active' : ''}`
 
   return (
     <li className={ styling }>
@@ -13,10 +17,10 @@ export default function Player( { name, symbol, onNameChange, hasGameStarted, cu
         <span className="player-name">{ playerName }</span>
       ) : (
         <input type="text" value={ playerName }
-          onChange={ ( e ) => setPlayerName( e.target.value ) }
-          onBlur={ ( e ) => {
+          onChange={ (e) => setPlayerName(e.target.value) }
+          onBlur={ (e) => {
             e.target.reportValidity();
-            onNameChange( symbol, playerName )
+            onNameChange(symbol, playerName)
           } }
           required
         />

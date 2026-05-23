@@ -1,27 +1,27 @@
 import { useState } from 'react'
 import GameBoard from './GameBoard'
 
-export default function GameHistory( { gameBoard, moveHistory, handleResetGame, winner } ) {
-  const [ historyIndex, setHistoryIndex ] = useState( 0 )
+export default function GameHistory({ gameBoard, moveHistory, handleResetGame, winner, continueGame }) {
+  const [historyIndex, setHistoryIndex] = useState(0)
 
-  let priorMoves = moveHistory.slice( 0, historyIndex )
+  let priorMoves = moveHistory.slice(0, historyIndex)
 
   function handlePrevious() {
-    setHistoryIndex( ( prev ) => prev + 1 )
+    setHistoryIndex((prev) => prev + 1)
   }
 
   function handleNext() {
-    setHistoryIndex( ( prev ) => prev - 1 )
+    setHistoryIndex((prev) => prev - 1)
   }
 
   return (
     <div id="move-history">
       <div id="move-history-header">
         <h2>Game History</h2>
-        <span> { winner ? `Winner: ${ winner.name } ( ${ winner.symbol } )` : 'It\'s a draw!' }</span>
+        <span> { winner ? `Winner: ${winner.name} ( ${winner.symbol} )` : 'It\'s a draw!' }</span>
       </div>
-      <button onClick={ handleResetGame }>Start New Game</button>
-      <GameBoard gameBoard={ gameBoard } onClickSquare={ () => { } } currentMove={ moveHistory[ historyIndex ] } priorMoves={ priorMoves } />
+
+      <GameBoard gameBoard={ gameBoard } onClickSquare={ () => {} } currentMove={ moveHistory[historyIndex] } priorMoves={ priorMoves } />
 
       <div id="move-history-buttons">
         <button onClick={ handlePrevious } disabled={ historyIndex >= moveHistory.length - 1 }>
@@ -30,6 +30,10 @@ export default function GameHistory( { gameBoard, moveHistory, handleResetGame, 
         <button onClick={ handleNext } disabled={ historyIndex <= 0 }>
           Next
         </button>
+      </div>
+      <div id="move-history-buttons">
+        <button onClick={ handleResetGame }>Reset All</button>
+        <button onClick={ continueGame }>Continue Playing</button>
       </div>
     </div>
   )
