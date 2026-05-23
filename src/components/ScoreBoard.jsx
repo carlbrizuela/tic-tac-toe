@@ -6,15 +6,16 @@ export default function ScoreBoard({ scores, players }) {
         <thead>
           <tr>
             { Object.keys(scores).map((key) => (
-              <th>{ key }</th>
+              <th key={ key }>{ key }</th>
             )) }
           </tr>
         </thead>
         <tbody>
           <tr>
             { Object.entries(scores).map(([player, score]) => (
-              <td>{ score }</td>
-            )) } </tr>
+              <td key={ player }>{ score }</td>
+            )) }
+          </tr>
         </tbody>
       </table>
     </div>
